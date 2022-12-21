@@ -3,16 +3,17 @@ package Testing.Trabajo_P3;
 import java.util.ArrayList;
 
 public class GestorCuentas {
-private ArrayList<Cuenta>cuentas = new ArrayList<Cuenta>();
+private ArrayList<Cuenta>cuentas; 
 
 public GestorCuentas() {
+	cuentas= new ArrayList<Cuenta>();
 }
 
 public ArrayList<Cuenta> getCuentas() {
 	return cuentas;
 }
 
-public void NewCuenta(Cliente client) {
+public Cuenta NewCuenta(Cliente client) {
 	Cuenta cuenta = new Cuenta(client, "",0);
 	if(client.getEdad()<18 && client.isEstudia() && !client.isIndependizado()) {
 		cuenta.setTipo("Confort");
@@ -32,10 +33,11 @@ public void NewCuenta(Cliente client) {
 	else if(client.getEdad()>25 && client.isTrabaja() && client.isIndependizado()) {
 		cuenta.setTipo("Bienvenido a la vida adulta");
 	}
-	else {
-		cuenta.setTipo("25 primaveras");
+	else if(client.getEdad()==25 || client.getEdad()==18) {
+		cuenta.setTipo("ordinaria");
 	}
 	cuentas.add(cuenta);
+	return cuenta;
 }
 
 }

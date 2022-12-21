@@ -8,9 +8,11 @@ public class Cliente {
 	private boolean trabaja;
 
 	public Cliente(String nombre, int edad, boolean estudia, boolean independizado, boolean trabaja)
-			throws EdadNoValidaException {
+			throws EdadNoValidaException, IndependenciaNoValidaException {
 		if (edad < 0 || edad > 127)
 			throw new EdadNoValidaException("Edad no valida");
+		if (edad <= 16 && independizado)
+			throw new IndependenciaNoValidaException("No puedes estar independizado siendo menor de 16");
 		this.edad = edad;
 		this.estudia = estudia;
 		this.independizado = independizado;
@@ -22,9 +24,11 @@ public class Cliente {
 		return edad;
 	}
 
-	public void setEdad(int edad) throws EdadNoValidaException {
+	public void setEdad(int edad) throws EdadNoValidaException, IndependenciaNoValidaException {
 		if (edad < 0 || edad > 127)
 			throw new EdadNoValidaException("Edad no valida");
+		else if (edad <= 16 && independizado)
+			throw new IndependenciaNoValidaException("No puedes estar independizado siendo menor de 16");
 		this.edad = edad;
 	}
 
@@ -40,7 +44,9 @@ public class Cliente {
 		return independizado;
 	}
 
-	public void setIndependizado(boolean independizado) {
+	public void setIndependizado(boolean independizado) throws IndependenciaNoValidaException {
+		if (edad>0 && edad <= 16 && independizado)
+			throw new IndependenciaNoValidaException("No puedes estar independizado siendo menor de 16");
 		this.independizado = independizado;
 	}
 
@@ -59,6 +65,5 @@ public class Cliente {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
 
 }
